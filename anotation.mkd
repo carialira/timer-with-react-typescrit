@@ -1,0 +1,143 @@
+## Testar o eslint
+->npx eslint src --ext .ts,.tsx
+
+## Para corrigir todos os erros do proejto
+->  npx eslint src --ext .ts,.tsx --fix
+
+## Caso queira ver as configurações utilizadas nesse plugin, você pode acessar o repositório oficial com o código dessas configurações para o React: 
+https://github.com/Rocketseat/eslint-config-rocketseat/blob/main/react.js
+
+## O ESLint possui uma enorme lista de rules (regras) que você pode configurar, e todas estão disponíveis através desse link da documentação oficial: 
+https://eslint.org/docs/rules/
+
+## Caso queira ver mais sobre como configurar o ESLint manualmente, você pode ver o guia de Getting Started do ESLint disponível no seguinte link: 
+https://eslint.org/docs/user-guide/getting-started
+
+## o <BrowserRouter /> do react-router-dom e o <ThemeProvider /> do styled-components
+são Context Providers e servem para compartilhar informações entr os componentes que estão dentro deles e não produzem nada em tela
+
+## O componente que usamos do react-router-dom quando precisamos criar layouts em que esse componente será substituído pelo conteúdo da rota
+É o componente <Outlet />
+
+## o componente do react-router-dom que podemos utilizar para criar navegação entre as rotas
+É o componente <NavLink />
+
+## No styled-components, como podemos utilizar outros componentes estilizados como base para novos componentes?
+Conforme o exemplo: styled(baseComponent)
+
+## Controlled vs Uncontrolled
+-> Controlled: manter em tempo real o estado/informação que o usuário inseri na aplicação dentro do estado/variavel do componente.
+  -> Toda vez que o usuário mudar a informação por exemplo no input atualiza a informação no estado contendo esse novo valor.
+  -> Ex.: Utilizando o useState no onChange do componente
+  -> Beneficios: ter acesso facil aos valores atuais e os novos para aplicar validações
+  -> Contra: cada alteração de estado o react recalcula todo conteúdo do componente do estado que mudou, ou seja, faz a renderização. Pode ser problema de performace para aplicações grandes
+  -> Casos de Uso: Utilizado para aplicar ações em outros campos em tempo real para formulário
+
+-> Uncontrolled: Busca a informação somente quando precisar.
+  -> Ex.: Aplicar a validação do formulário no envio, no evento de submit.
+  -> Beneficios:  Controle de performancece para grandes projetos.
+  -> Contra: Perde a fluidez de alterações em tempo real.
+  -> Casos de Uso: Utilizados em Dashboard.
+
+## Types
+-> border-radius: sempre usar pixels
+-> border-collapse: collapse: pega a borda como um todo entre os elementos
+-> as const: para dizer ao typescrit que o texto(string) não irá mudar
+-> keyof typeof: pega as keys do to objeto do tipo informado
+-> ::before e ::after: adiciona novo elemento no html através do css
+-> inherit: esse valor herda da div pai
+-> flex:  <'flex-grow'> <'flex-shrink'>? || <'flex-basis'>
+-> flex-grow: dar habilidade para componente crescer o tamanho dele, além do tamanho original dele
+-> flex-shrink: dar habilidade para componente diminuir o tamanho dele para menor se for necessário
+-> flex-basis: qual o tamanho ideal do meu elemento
+-> box-shadow: valores "0 no eixo x - 0 no eixo y - 0 de blur e 2px de tamanho"
+
+## React Hook Form
+-> useForm: função hook, onde contém varias funções e objetos utilizados para criar o formulário na aplicação.
+  -> duas funções essencias são: register e handleSubmit.
+    -> register: é uma função responsável por capturar os campos do formulário, ou seja, precisa capturar os names dos campos, ela retorna os metodos dos input, como onChange, onBlur, onFocus, ref, disabled, max, min, pattern, entre outros..
+      -> Ex.: {...register('task')}
+      -> É possível definir um segundo parâmetro que é um objeto de configurações, Ex.: {...register('minutesAmount', { valueAsNumber: true })}
+    -> handleSubmit: é uma função responsável por executar uma função de submit passada por argumento e retorna os valores dos campos preenchidos
+      ->Ex.: <form action="" onSubmit={handleSubmit(handleCreateNewCycle)}> 
+  -> Tem outras funções como a "watch"
+      ->watch: responsável por observar o campo informado, ex.: watch('task')
+  -> a função "formState" do react hook form é possível capturar valores como os erros
+
+## Lib de Validações de Formulário: YUP, JOIN e ZOD com react hook form
+-> O React Hook Form integra com essas lib, para isso instale:
+  npm i @hookform/resolvers
+-> Com isso é possível utilizar configurações que são integradas com cada lib, exx.: import { zodResolver } from '@hookform/resolvers/zod'  
+-> Para usar precisa passar um objeto de configuração para dentro do useForm(), com a propriedade resolver e passar o schema de validação.
+-> Ex.:   const { register, handleSubmit, watch } = useForm({
+    resolver: zodResolver(newCyCleFormValidationSchema)
+  })
+-> dentro do objeto é possível utilizar a propriedade defaultValues, para definir valores inicias.
+-> Para utilizar typescript basta passar dentro de <> no useForm()
+
+
+## UseEffect
+-> Utilizar quando precisar lidar com efeitos colaterais externos e sincronizar a aplicação com essas informações
+-> Executa na primeira vez que o componente é exibido em tela
+-> Executa quando variavel informado na dependência for alterada
+-> Não utilizar para atualizar o estado
+-> Sempre que utiliza uma variavel externa dentro do useEffect, precisa incluir como dependência do useEffect
+-> Dentro do useEffect é possível ter um retorno em forma de arrow function, sendo responsável por limpar/resetar o useEffect anterior quando é executado novamente
+
+## PROP DRILLING
+-> Quando a gente tem muitas propriedades APENAS para comunicação entre componentes
+-> Para resolver pode se usar Context API
+  -> permite compartilhar informações entre VÁRIOS componentes ao mesmo tempo
+
+## CONTEXT API
+-> Para criar um context precisa:
+  -> importar "createContext" que é uma função e precisar armazenar em uma variavel e passa dentro dos paranteses qual o valor inicial desse contexto
+    -> Exemplo: const CyclesContext = createContext({activeCycle:1})
+-> Para usar o context criado precisa:
+  -> importar "useContext" que é uma função, onde nos parametros espera receber o contexto criado, para conseguir utilizar os contextos criados;
+-> Para modificar as informações do Contexto é preciso:
+  -> utilizar o conceito de estado, para utilizar isso é preciso definir um context provider por volta dos compoenentes que precisam ter acesso aos valores do contexto.
+  -> Exemplo: <CyclesContext.Provider>, esse cara recebe um valor "value" precisa enviar qual a informação será comparitlhada entre todos componentes que estão por dentro do provider
+  -> É importante que o que é passado no value seja igual o contexto espera receber
+
+## USEREDUCER
+-> Para armazenar informação mais complexa, custosa e alterar essa informação no futuro
+-> Local fixo para todas alterações que pode ocorrer dentro de um estado
+
+-> O useReducer(), recebe três parêmetros, ex.: useReducer((state,)=>{},[]) 
+  -> 1º é uma função () => {}, ela já recebe dois parâmetros:
+      -> 1º é o state, valor atual em tempo real da variavel
+      -> 2º é a action, qual ação o usuário esta querendo realiazar de alteração dentro da variavel, para alterar o estado 
+  -> 2º é qual o valor inicial da variavel 
+  -> 3º é que é uma função disparada quando reducer é criado para recuperar valores
+-> sempre retorna o state
+
+const [cycles, dispatch] = useReducer((state: Cycle[], action: any) => {
+    return state
+}, [])
+
+O segundo valor da constante não atualiza mais o estado igual useState, agora ele dispara uma ação
+
+
+## IMMER
+-> Trabalha com dados imutavéis como se não fosse, por baixo dos panos retorna imutaveis
+-> Quando precisa alterar estado e é muito profunda, precisa alterando array dentro de array.
+
+-> produce: primeiro parâmetro é a informação que deseja modificar, o segundo parâmetro é uma variavel draft que seria o rascunho (com todo conteudo) onde fica as alterações que deseja  fazer, podendo trabalhar como se fosse mutavél
+-> utilizando o produce ao invés de fazer dessa forma:
+  return {
+        ...state,
+        cycles: [...state.cycles, action.payload.newCycle],
+        activeCycleId: action.payload.newCycle.id,
+      }
+faria dessa forma:
+  return produce(state, (draft) => {
+        draft.cycles.push(action.payload.newCycle)
+        draft.activeCycleId = action.payload.newCycle.id
+      })
+
+## LOCALSTORAGE
+-> Só aceita salvar texto, então precisa utilizar JSON.stringify
+-> Para setar o item basta utilizar: localStorage.setItem('',) o primeiro valor é o nome (sempre utilizar prefix como o nome da app e o nome do state e a versão) e o segundo é o valor
+  ->ex: localStorage.setItem('@carialira-timer:cycles-state-1.0.0', JSON)
+-> Para não perder esses dados precisa salvar, como no 3º parametro do useReducer ou rootRedux  
