@@ -31,3 +31,12 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+# Overview of Projetct
+
+![image](https://github.com/carialira/timer-with-react-typescrit/assets/36704406/e58c5839-b26e-4f95-8d3f-2202f52e9891)
+
+![image](https://github.com/carialira/timer-with-react-typescrit/assets/36704406/e757a11a-d1ce-4ee5-b292-64a28388b3ca)
+
+![image](https://github.com/carialira/timer-with-react-typescrit/assets/36704406/b04914e8-0502-4c24-b1d2-1526c8d88d99)
+
